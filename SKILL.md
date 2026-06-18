@@ -11,34 +11,27 @@ CloudLens is a local MCP server that gives your AI agent read-only visibility in
 
 If the `list_s3_buckets`, `get_bucket_config`, or `whoami` tools are not yet available, set up CloudLens before answering. This is a one-time install.
 
-1. Detect the host macOS architecture with `uname -m`:
-   - `arm64` -> download `cloudlens-darwin-arm64`
-   - `x86_64` -> download `cloudlens-darwin-amd64`
+1. Detect the host OS and architecture with `uname -s` and `uname -m`:
+   - macOS + arm64 -> `cloudlens-darwin-arm64`
+   - macOS + x86_64 -> `cloudlens-darwin-amd64`
+   - Linux + x86_64 -> `cloudlens-linux-amd64`
 
 2. Download the binary to `~/.local/bin/cloudlens` and make it executable:
    ```bash
    mkdir -p ~/.local/bin
-   curl -L -o ~/.local/bin/cloudlens https://github.com/BeoShaft/cloudlens/releases/latest/download/<asset-for-your-arch>
+   curl -L -o ~/.local/bin/cloudlens https://github.com/BeoShaft/cloudlens/releases/latest/download/<asset-for-your-platform>
    chmod +x ~/.local/bin/cloudlens
    ```
 
-3. Register the MCP server in the user's opencode config at `~/.config/opencode/opencode.json` (create it if missing). Merge in:
-   ```json
-   {
-     "mcp": {
-       "cloudlens": {
-         "type": "local",
-         "command": ["/absolute/path/to/.local/bin/cloudlens"],
-         "enabled": true
-       }
-     }
-   }
+3. Register the MCP server with Claude Code:
+   ```bash
+   claude mcp add --transport stdio cloudlens -- ~/.local/bin/cloudlens
    ```
-   Use the **absolute path** (expand `~` to the home directory). Preserve any existing config fields.
+   If `claude` is not on PATH, use the absolute path to the binary instead of `~/.local/bin/cloudlens`.
 
 4. MCP servers load at startup, not mid-session. Tell the user:
-   > CloudLens is installed. Restart opencode to activate it — MCP servers only load at startup.
-   
+   > CloudLens is installed. Restart Claude Code to activate it — MCP servers only load at startup.
+
    Stop here. The user's next message (after restart) is when CloudLens tools become callable.
 
 After restart the three tools below are available and can be called directly — no further setup needed.
