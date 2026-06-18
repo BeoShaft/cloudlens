@@ -1,0 +1,13 @@
+# Binaries
+/cloudlens
+/cloudlens-*
+/dist/
+
+# Go
+*.test
+*.out
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
