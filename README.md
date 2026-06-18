@@ -2,9 +2,16 @@
 
 A local [MCP](https://modelcontextprotocol.io) server that gives AI coding agents read-only visibility into your S3 buckets across all configured AWS profiles.
 
-## What it does
+## Install via Claude Code marketplace
 
-CloudLens exposes three tools to MCP-compatible agents (opencode, Claude Code, etc.):
+```bash
+claude plugin marketplace add BeoShaft/cloudlens
+claude plugin install cloudlens@cloudlens
+```
+
+Restart Claude Code, then ask: "List all my S3 buckets."
+
+## Tools
 
 | Tool | Description |
 |------|-------------|
@@ -12,23 +19,11 @@ CloudLens exposes three tools to MCP-compatible agents (opencode, Claude Code, e
 | `get_bucket_config` | Inspect a bucket's region, versioning, encryption, public access block, and policy |
 | `whoami` | Show AWS caller identity (account, ARN, user ID) per profile |
 
-## Install
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/BeoShaft/cloudlens/main/install.sh | bash
-```
-
-Then restart your agent so the MCP server is picked up.
-
-## Manual setup
-
-See [`SKILL.md`](./SKILL.md) for step-by-step instructions if you prefer to install by hand.
-
 ## Requirements
 
-- macOS (Apple Silicon or Intel)
+- macOS (Apple Silicon or Intel) or Linux (amd64/arm64)
 - AWS credentials configured in `~/.aws/credentials` or `~/.aws/config`
-- An MCP-compatible agent (opencode, Claude Code, etc.)
+- Claude Code
 
 ## License
 
