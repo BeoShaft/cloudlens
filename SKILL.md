@@ -15,6 +15,7 @@ If the `list_s3_buckets`, `get_bucket_config`, or `whoami` tools are not yet ava
    - macOS + arm64 -> `cloudlens-darwin-arm64`
    - macOS + x86_64 -> `cloudlens-darwin-amd64`
    - Linux + x86_64 -> `cloudlens-linux-amd64`
+   - Linux + aarch64 -> `cloudlens-linux-arm64`
 
 2. Download the binary to `~/.local/bin/cloudlens` and make it executable:
    ```bash
