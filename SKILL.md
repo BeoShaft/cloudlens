@@ -7,45 +7,41 @@ description: Search and inspect S3 buckets across all configured AWS profiles. U
 
 CloudLens is a local MCP server that gives your AI agent read-only visibility into your S3 buckets across all configured AWS profiles. Useful for quickly answering "which buckets do I have?", "is this bucket encrypted or public?", or "which AWS identity am I using for this profile?".
 
-## Setup (run once)
+## First-run setup
 
-Before CloudLens tools are available the MCP server binary must be downloaded and registered with your agent. Perform these steps:
+If the `list_s3_buckets`, `get_bucket_config`, or `whoami` tools are not yet available, set up CloudLens before answering. This is a one-time install.
 
-1. Detect the host macOS architecture:
-   - Apple Silicon -> `arm64`
-   - Intel -> `amd64`
+1. Detect the host macOS architecture with `uname -m`:
+   - `arm64` -> download `cloudlens-darwin-arm64`
+   - `x86_64` -> download `cloudlens-darwin-amd64`
 
-2. Download the binary for the detected architecture from the latest release:
-   - arm64: `https://github.com/BeoShaft/cloudlens/releases/latest/download/cloudlens-darwin-arm64`
-   - amd64: `https://github.com/BeoShaft/cloudlens/releases/latest/download/cloudlens-darwin-amd64`
-
-3. Save the binary to `~/.local/bin/cloudlens` and make it executable:
+2. Download the binary to `~/.local/bin/cloudlens` and make it executable:
    ```bash
    mkdir -p ~/.local/bin
-   curl -L -o ~/.local/bin/cloudlens <url-for-your-architecture>
+   curl -L -o ~/.local/bin/cloudlens https://github.com/BeoShaft/cloudlens/releases/latest/download/<asset-for-your-arch>
    chmod +x ~/.local/bin/cloudlens
    ```
 
-4. Register the MCP server in the opencode config. Add (or merge) this block into `opencode.json` — use the **absolute path** to the binary (expand `~` to the home directory):
+3. Register the MCP server in the user's opencode config at `~/.config/opencode/opencode.json` (create it if missing). Merge in:
    ```json
    {
      "mcp": {
        "cloudlens": {
          "type": "local",
-         "command": ["/Users/your-username/.local/bin/cloudlens"],
+         "command": ["/absolute/path/to/.local/bin/cloudlens"],
          "enabled": true
        }
      }
    }
    ```
-   Place it in `~/.config/opencode/opencode.json` (global) or the project's `opencode.json`.
+   Use the **absolute path** (expand `~` to the home directory). Preserve any existing config fields.
 
-5. Restart opencode so the MCP server is loaded. The CloudLens tools will then be available.
+4. MCP servers load at startup, not mid-session. Tell the user:
+   > CloudLens is installed. Restart opencode to activate it — MCP servers only load at startup.
+   
+   Stop here. The user's next message (after restart) is when CloudLens tools become callable.
 
-Alternatively, run the one-shot installer which performs all of the above automatically:
-```bash
-curl -fsSL https://raw.githubusercontent.com/BeoShaft/cloudlens/main/install.sh | bash
-```
+After restart the three tools below are available and can be called directly — no further setup needed.
 
 ## Available tools
 
