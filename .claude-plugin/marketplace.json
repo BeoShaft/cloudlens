@@ -1,0 +1,13 @@
+{
+  "name": "cloudlens",
+  "owner": {
+    "name": "BeoShaft"
+  },
+  "plugins": [
+    {
+      "name": "cloudlens",
+      "source": "./",
+      "description": "Search and inspect S3 buckets across all configured AWS profiles"
+    }
+  ]
+}

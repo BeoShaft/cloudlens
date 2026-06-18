@@ -1,0 +1,8 @@
+{
+  "name": "cloudlens",
+  "description": "Search and inspect S3 buckets across all configured AWS profiles",
+  "version": "0.1.0",
+  "author": {
+    "name": "BeoShaft"
+  }
+}

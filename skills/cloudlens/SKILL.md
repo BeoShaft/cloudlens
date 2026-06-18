@@ -28,7 +28,6 @@ If the `list_s3_buckets`, `get_bucket_config`, or `whoami` tools are not yet ava
    ```bash
    claude mcp add --transport stdio cloudlens -- ~/.local/bin/cloudlens
    ```
-   If `claude` is not on PATH, use the absolute path to the binary instead of `~/.local/bin/cloudlens`.
 
 4. MCP servers load at startup, not mid-session. Tell the user:
    > CloudLens is installed. Restart Claude Code to activate it — MCP servers only load at startup.
